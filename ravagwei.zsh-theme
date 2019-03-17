@@ -123,6 +123,15 @@ setprompt () {
     # Finally, the prompt.
 LAMBDA="λ"
 
+function conda_env_name {
+    env_name=$(basename "$CONDA_PREFIX")
+    if [ -z "$env_name" ]; then
+        echo ""
+    else
+        echo " E: $env_name"
+    fi
+}
+
     PROMPT='$PR_SET_CHARSET$PR_STITLE${(e)PR_TITLEBAR}\
 $PR_RED$PR_ULCORNER$PR_HBAR$PR_GREY(\
 $PR_GREEN%$PR_PWDLEN<...<%~%<<\
@@ -132,6 +141,7 @@ $PR_YELLOW)$PR_RED$PR_HBAR$PR_URCORNER\
 
 $PR_RED$PR_LLCORNER$PR_RED$PR_HBAR(\
 $PR_GREEN$LAMBDA\
+$PR_GREEN`conda_env_name`\
 $PR_YELLOW%{$reset_color%}`git_prompt_info``git_prompt_status`$PR_RED)$PR_RED$PR_HBAR\
 $PR_HBAR\
 >$PR_NO_COLOUR '
